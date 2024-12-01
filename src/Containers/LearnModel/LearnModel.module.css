@@ -1,0 +1,135 @@
+/* Container styling */
+.container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: Arial, sans-serif;
+    min-width: 1024px;
+  }
+  
+  /* Header Section */
+  .headerSection {
+    margin-bottom: 40px;
+  }
+  
+  .headerSection h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  
+  .icon {
+    font-size: 24px;
+    color: #007bff;
+  }
+
+  .cardContentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .cardContent {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+  }
+  
+  .cardContent span {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .cardContent strong {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .actionButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .actionButton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table Section */
+  .tableSection {
+    margin-top: 40px;
+  }
+  
+  .tableSection h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f1f3f5;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  td {
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .logButton {
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #007bff;
+    border: 1px solid #007bff;
+    background: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .logButton:hover {
+    background-color: #007bff;
+    color: #fff;
+  }

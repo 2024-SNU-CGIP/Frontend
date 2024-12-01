@@ -1,0 +1,157 @@
+/* Container */
+.container {
+    max-width: 1024px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  /* Photo Section */
+  .photoSection {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .photoBox {
+    aspect-ratio: 4 / 3; /* Set a 4:3 width-to-height ratio */
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 320px; /* Height for LAT box */
+    min-width: 240px; /* Ensure consistent width */
+  }
+  
+  .photoSubSection {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+  }
+  
+  .photoBox h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .addPhotoButton {
+    padding: 8px 20px;
+    font-size: 14px;
+    color: #007bff;
+    border: 1px solid #007bff;
+    background: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .addPhotoButton:hover {
+    background-color: #007bff;
+    color: #fff;
+    transition: 0.2s;
+  }
+  
+  /* Data Info Section */
+  .dataInfoSection {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .dataInfoSection h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .dataRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .toggleInput {
+    display: none;
+  }
+  
+  .toggleLabel {
+    width: 50px; /* Increased width for better visibility */
+    height: 26px; /* Slightly larger height */
+    background-color: #e0e0e0;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toggleLabel::after {
+    content: "";
+    width: 20px; /* Larger toggle size */
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s;
+  }
+  
+  .toggleInput:checked + .toggleLabel {
+    background-color: #007bff;
+  }
+  
+  .toggleInput:checked + .toggleLabel::after {
+    transform: translateX(24px);
+  }
+  
+  .toggle span {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Action Button */
+  .actionButton {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .actionButton:hover {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 768px) {
+    .photoSection {
+      flex-direction: column;
+    }
+  
+    .photoSubSection {
+      flex-direction: row;
+      gap: 10px;
+    }
+  
+    .dataInfoSection {
+      gap: 15px;
+    }
+  }

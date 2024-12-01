@@ -1,0 +1,61 @@
+.container {
+    background-color: #f8f9fa;
+    border-radius: 12px; /* Rounded corners for the container */
+    padding: 20px;
+    min-width: 1024px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: separate; /* Use 'separate' to allow border spacing */
+    border-spacing: 0;
+    background-color: #fff;
+    border-radius: 12px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures rounded corners apply */
+    border: 1px solid #e9ecef; /* Add a thin border around the table */
+  }
+  
+  th, td {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  th {
+    background-color: #f1f3f5;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef; /* Bottom border for header */
+  }
+  
+  td {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef; /* Gray line for row separation */
+  }
+  
+  th:first-child,
+  td:first-child {
+    text-align: center; /* Center-align the first column */
+  }
+  
+  tr:last-child td {
+    border-bottom: none; /* Remove border for the last row */
+  }
+  
+  .button {
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #007bff;
+    border: 1px solid #007bff;
+    background: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #007bff;
+    color: #fff;
+    transition: 0.2s;
+  }
