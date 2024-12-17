@@ -1,12 +1,65 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LearnModel.module.css";
+import { useDispatch } from "react-redux";
+import { modelStat, fetchModelList, startTraining } from "../../store/slices/modelSlice";
+import learnTimeLogo from "../../img/learn-time.png";
+import imageCountLogo from "../../img/learn-image.png";
+import percentLogo from "../../img/learn-percent.png";
+
+
 
 const LearnModel = () => {
-  const dataRecords = [
-    { id: "01", dataCount: "1,222 개", status: "학습 중", accuracy: "학습 중", time: "2024.11.13. 18:21:02", log: "확인하기" },
-    { id: "02", dataCount: "1,222 개", status: "학습 완료", accuracy: "94.22%", time: "2024.11.13. 18:21:02", log: "확인하기" },
-    { id: "03", dataCount: "1,212 개", status: "에러 발생", accuracy: "에러 발생", time: "2024.11.13. 18:21:02", log: "확인하기" },
-  ];
+
+    const dispatch = useDispatch();
+
+    const [dataCount, setDataCount] = React.useState(0);
+    const [recentTime, setRecentTime] = React.useState("");
+    const [modelAccuracy, setModelAccuracy] = React.useState(0);
+
+    const [currPage, setCurrPage] = React.useState(1);
+    const [maxPage, setMaxPage] = React.useState(10);
+    const [trainList, setTrainList] = React.useState([]);
+
+    useEffect(() => {
+        dispatch(modelStat()).then((result) => {
+            setDataCount(result.payload.recent_data_count);
+            setRecentTime(result.payload.recent_train_date);
+            setModelAccuracy(result.payload.highest_accuracy);
+        });
+
+        dispatch(fetchModelList({currPage: currPage})).then((result) => {
+            setCurrPage(result.payload.page);
+            setMaxPage(result.payload.max_page);
+            setTrainList(result.payload.results);
+        });
+    }, [dispatch]);
+
+    const handlePrevPage = () => {
+        if (currPage > 1) {
+            dispatch(fetchModelList({currPage: currPage - 1})).then((result) => {
+                setCurrPage(result.payload.page);
+                setMaxPage(result.payload.max_page);
+                setTrainList(result.payload.results);
+            });
+            setCurrPage(currPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currPage < maxPage) {
+            dispatch(fetchModelList({currPage: currPage + 1})).then((result) => {
+                setCurrPage(result.payload.page);
+                setMaxPage(result.payload.max_page);
+                setTrainList(result.payload.results);
+            });
+            setCurrPage(currPage + 1);
+        }
+    };
+
+    const handleTrainStart = () => {
+        dispatch(startTraining())
+    };
+
 
   return (
     <div className={styles.container}>
@@ -15,28 +68,34 @@ const LearnModel = () => {
         <h2>모델 학습하기</h2>
         <div className={styles.cards}>
           <div className={styles.card}>
-            <div className={styles.icon}>📊</div>
+            <div className={styles.icon}>
+                <img src={imageCountLogo} width="50px"/>
+            </div>
             <div className={styles.cardContent}>
               <span>현재 데이터 개수</span>
-              <strong>1,234 개</strong>
+              <strong>{dataCount}</strong>
             </div>
           </div>
           <div className={styles.card}>
-            <div className={styles.icon}>🕒</div>
+            <div className={styles.icon}>
+                <img src={learnTimeLogo} width="50px"/>
+            </div>
             <div className={styles.cardContent}>
               <span>최근 학습 시간</span>
-              <strong>2024.11.13. 18:21:02</strong>
+              <strong>{recentTime}</strong>
             </div>
           </div>
           <div className={styles.card}>
-            <div className={styles.icon}>📈</div>
+            <div className={styles.icon}>
+                <img src={percentLogo} width="50px"/>
+            </div>
             <div className={styles.cardContent}>
               <span>모델 정확도</span>
-              <strong>94.29%</strong>
+              <strong>{`${(modelAccuracy * 100).toFixed(3)}%`}</strong>
             </div>
           </div>
         </div>
-        <button className={styles.actionButton}>현재 데이터로 학습</button>
+        <button className={styles.actionButton} onClick={handleTrainStart}>현재 데이터로 학습</button>
       </div>
 
       {/* Table Section */}
@@ -45,30 +104,37 @@ const LearnModel = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th class="text-center">순번</th>
-              <th class="text-center">데이터 개수</th>
-              <th class="text-center">학습 상태</th>
-              <th class="text-center">모델 정확도</th>
-              <th class="text-center">학습 시간</th>
-              <th class="text-center">로그 확인</th>
+              <th className="text-center">학습 id</th>
+              <th className="text-center">학습 상태</th>
+              <th className="text-center">모델 정확도</th>
+              <th className="text-center">학습 시간</th>
             </tr>
           </thead>
           <tbody>
-            {dataRecords.map((record) => (
+            {trainList.map((record) => (
               <tr key={record.id}>
                 <td>{record.id}</td>
-                <td>{record.dataCount}</td>
                 <td>{record.status}</td>
-                <td>{record.accuracy}</td>
-                <td>{record.time}</td>
-                <td>
-                  <button className={styles.logButton}>{record.log}</button>
-                </td>
+                <td>{(record.test_accuracy * 100).toFixed(3)}</td>
+                <td>{record.training_time}s</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+        <div className={styles.pagination}>
+            <button onClick={handlePrevPage} disabled={currPage === 1}>
+                이전 페이지
+            </button>
+            <span>
+                {currPage} / {maxPage}
+            </span>
+            <button onClick={handleNextPage} disabled={currPage === maxPage}>
+                다음 페이지
+            </button>
+        </div>
     </div>
   );
 };

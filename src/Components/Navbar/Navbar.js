@@ -14,10 +14,10 @@ const Navbar = () => {
       }}
     >
       <div className="container-fluid">
-        <span className="navbar-brand mb-0 h1">My App</span>
+        <span className="navbar-brand mb-0 h1">서울관악치과병원</span>
         <div>
-          <button className="btn btn-outline-primary me-2">🔔 Notifications</button>
-          <button className="btn btn-outline-secondary">⚙️ Settings</button>
+          {/* <button className="btn btn-outline-primary me-2">🔔 Notifications</button> */}
+          {/* <button className="btn btn-outline-secondary">⚙️ Settings</button> */}
         </div>
       </div>
     </nav>

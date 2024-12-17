@@ -3,10 +3,12 @@ import styles from "./AddPhoto.module.css";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { uploadImage } from "../../store/slices/imageSlice";
+import { useNavigate } from "react-router";
 
 const AddPhoto = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [imageU, setImageU] = useState(null); // Store the selected file locally
     const [imageL, setImageL] = useState(null); // Store the selected file locally
@@ -62,6 +64,7 @@ const AddPhoto = () => {
         const result = dispatch(uploadImage({ data })).unwrap();
         console.log(result);
 
+        navigate("/dashboard");
     }
 
   return (

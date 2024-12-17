@@ -1,80 +1,78 @@
 import React from 'react';
-import styles from './Dashboard.module.css';
+import styles from './ImageList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImage } from '../../store/slices/imageSlice';
 import { useEffect } from 'react';
-import { fetchPredictList } from '../../store/slices/modelSlice';
 import { useNavigate } from 'react-router';
 
-const Dashboard = () => {
+const ImageList = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [currPage, setCurrPage] = React.useState(1);
     const [maxPage, setMaxPage] = React.useState(10);
-    const [predictList, setPredictList] = React.useState([]);
-    // const { currImageList, loading, error } = useSelector((state) => state.image);
+    const [imageList, setImageList] = React.useState([]);
+
+    // const { fetchImageResponse, loading, error } = useSelector((state) => state.image.fetchImageResponse);
 
     useEffect(() => {
-        dispatch(fetchPredictList({currPage: currPage})).then((result) => {
+        dispatch(fetchImage({currPage: currPage})).then((result) => {
             setCurrPage(result.payload.page);
             setMaxPage(result.payload.max_page);
-            setPredictList(result.payload.results);
-            console.log(result.payload.results);
+            setImageList(result.payload.patients.map((patient) => {return patient.patient_id}));
         });
+
+        
     }
     , [dispatch]);
 
+    const handleDetail = (id) => { 
+        navigate(`/photodetail/${id}`);
+    }
+
+    // Handle "Previous Page"
     const handlePrevPage = () => {
         if (currPage > 1) {
-            dispatch(fetchPredictList({currPage: currPage - 1})).then((result) => {
+            dispatch(fetchImage({currPage: currPage - 1})).then((result) => {
                 setCurrPage(result.payload.page);
                 setMaxPage(result.payload.max_page);
-                setPredictList(result.payload.results);
+                setImageList(result.payload.patients.map((patient) => {return patient.patient_id}));
             });
             setCurrPage(currPage - 1);
         }
     };
 
+    // Handle "Next Page"
     const handleNextPage = () => {
         if (currPage < maxPage) {
-            dispatch(fetchPredictList({currPage: currPage + 1})).then((result) => {
+            dispatch(fetchImage({currPage: currPage + 1})).then((result) => {
                 setCurrPage(result.payload.page);
                 setMaxPage(result.payload.max_page);
-                setPredictList(result.payload.results);
+                setImageList(result.payload.patients.map((patient) => {return patient.patient_id}));
             });
             setCurrPage(currPage + 1);
         }
     };
 
-    const handleDetail = (id) => {
-        navigate(`/predictresult/${id}`);
-    }
-
-
+    // const tableData = fetchImageResponse.patients.map((patient) => {return patient.id})
 
     return (
         <div className={styles.container}>
-          <h5>발치 여부 데이터</h5>
+          <h5>학습 데이터 확인</h5>
           <table className={styles.table}>
             <thead>
               <tr>
-                <th class="text-center">예측 id</th>
-                <th class="text-center">생년월일</th>
-                <th class="text-center">이름</th>
-                <th class="text-center">발치 여부</th>
-                <th class="text-center">자료 확인</th>
+                <th className="text-center">순번</th>
+                <th className="text-center">자료 확인</th>
               </tr>
             </thead>
             <tbody>
-            {predictList.map((row) => (
-                <tr key={row.id}>
-                  <td>{row.id}</td>
-                  <td>{row.birthdate}</td>
-                  <td>{row.name}</td>
-                  <td>{row.status === "completed" ? (row.result === 0 ? "미발치" : "발치") : "확인중"}</td>
+              {imageList.map((row) => (
+                <tr key={row}>
+                  <td>{row}</td>
                   <td>
-                    <button className={styles.button} onClick={() => {handleDetail(row.id)}}>상세조회</button>
+                    <button className={styles.button} onClick={() => handleDetail(row)}>상세조회</button>
                   </td>
                 </tr>
               ))}
@@ -98,4 +96,4 @@ const Dashboard = () => {
       );
 }
 
-export default Dashboard;
+export default ImageList;

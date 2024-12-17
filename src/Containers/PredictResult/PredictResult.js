@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import styles from "./PhotoDetail.module.css";
+import styles from "./PredictResult.module.css";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchImageByPatientId } from "../../store/slices/imageSlice";
+import { fetchPredictResultByTaskId } from "../../store/slices/modelSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
 
-const PhotoDetail = () => {
+const PredictResult = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { photonum } = useParams();
+    const { predictnum } = useParams();
 
     const [imageU, setImageU] = useState(null); // Store the selected file locally
     const [imageL, setImageL] = useState(null); // Store the selected file locally
@@ -19,10 +19,10 @@ const PhotoDetail = () => {
     const [extract, setExtract] = useState(false);
 
     useEffect(() => {
-        dispatch(fetchImageByPatientId({photoNum: photonum})).then((result) => {
-            setImageU(result.payload.images[0].photo_U);
-            setImageL(result.payload.images[0].photo_L);
-            setImageLAT(result.payload.images[0].xray);
+        dispatch(fetchPredictResultByTaskId({predictnum: predictnum})).then((result) => {
+            setImageU(result.payload.images.photo_U);
+            setImageL(result.payload.images.photo_L);
+            setImageLAT(result.payload.images.xray);
             setExtract(result.payload.label === 0 ? false : true);
             console.log(imageU);
         });
@@ -63,4 +63,4 @@ const PhotoDetail = () => {
     )
 }
 
-export default PhotoDetail;
+export default PredictResult;

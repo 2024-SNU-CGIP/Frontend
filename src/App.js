@@ -9,6 +9,8 @@ import LearnModel from './Containers/LearnModel/LearnModel';
 import AddPhoto from './Containers/AddPhoto/AddPhoto';
 import TestPatient from './Containers/TestPatient/TestPatient';
 import PhotoDetail from './Containers/PhotoDetail/PhotoDetail';
+import ImageList from './Containers/ImageList/ImageList';
+import PredictResult from './Containers/PredictResult/PredictResult';
 
 
 
@@ -40,7 +42,9 @@ function App() {
           <Route path="/learnmodel" element={<LearnModel />} />
           <Route path="/addphoto" element={<AddPhoto />} />
           <Route path="/testpatient" element={<TestPatient />} />
-          <Route path="/photodetail" element={<PhotoDetail />} />
+          <Route path="/imagelist" element={<ImageList />} />
+          <Route path="/photodetail/:photonum" element={<PhotoDetail />} />
+          <Route path="/predictresult/:predictnum" element={<PredictResult />} />
         </Routes>
       </div>
     </div>

@@ -26,7 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "react-start": "BROWSER=none npm start",
-    "electron-start": "ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron-start": "ELECTRON_START_URL=http://localhost:3000/ electron .",
     "electron-pack": "npm run build && electron-builder build -c.extraMetadata.main=build/main.js"
   },
   "eslintConfig": {
@@ -50,6 +50,7 @@
   "main": "public/main.js",
   "homepage": "./",
   "devDependencies": {
-    "electron": "^33.2.0"
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
   }
 }

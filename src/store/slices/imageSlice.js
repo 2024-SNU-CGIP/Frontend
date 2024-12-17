@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    currImageList: [],
+    fetchImageResponse: [],
     loading: false,
     error: null,
 };
@@ -29,7 +29,7 @@ export const uploadImage = createAsyncThunk("images/upload", async ({ data }) =>
         formData.append("photo_U", data.U);
         formData.append("photo_L", data.L);
 
-        const response = await axios.post(`http://localhost:8000/upload_data`, formData, {
+        const response = await axios.post(`http://localhost:8000/upload/upload_data`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -45,19 +45,20 @@ export const uploadImage = createAsyncThunk("images/upload", async ({ data }) =>
 });
 
 export const fetchImageByPatientId = createAsyncThunk("images/fetchByPatientId", async (patientId) => {
+
+    console.log(`patientId: ${patientId.photoNum}`);
     try {
-        const response = await axios.get(`http://localhost:8000/images/${patientId}`);
+        const response = await axios.get(`http://localhost:8000/images/images/${patientId.photoNum}`);
         return response.data;
     } catch (error) {
         return error.response.data;
     }
 });
 
-export const fetchImage = createAsyncThunk("images", async () => {
+export const fetchImage = createAsyncThunk("images", async (data) => {
     try {
-        const response = await axios.get("http://localhost:8000/images");
-        console.log(response.data);
-        return response.data.patient;
+        const response = await axios.get("http://localhost:8000/images/images?page=" + data.currPage);
+        return response.data;
     } catch (error) {
         return error.response.data;
     }
