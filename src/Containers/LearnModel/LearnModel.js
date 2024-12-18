@@ -114,7 +114,7 @@ const LearnModel = () => {
             {trainList.map((record) => (
               <tr key={record.id}>
                 <td>{record.id}</td>
-                <td>{record.status === "failed" ? `${record.status} : ${result.result}` : record.status}</td>
+                <td>{record.status === "failed" ? `${record.status} : ${record.result}` : record.status}</td>
                 <td>{(record.test_accuracy * 100).toFixed(3)}</td>
                 <td>{record.training_time}s</td>
               </tr>
