@@ -23,7 +23,7 @@ const PredictResult = () => {
             setImageU(result.payload.images.photo_U);
             setImageL(result.payload.images.photo_L);
             setImageLAT(result.payload.images.xray);
-            setExtract(result.payload.label <= 0.5 ? false : true);
+            setExtract(parseFloat(result.payload.label) <= 0.5 ? false : true);
             console.log(imageU);
         });
 
