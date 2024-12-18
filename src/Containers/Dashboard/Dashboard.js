@@ -72,7 +72,7 @@ const Dashboard = () => {
                   <td>{row.id}</td>
                   <td>{row.birthdate}</td>
                   <td>{row.name}</td>
-                  <td>{row.status === "completed" ? (row.result >= 0.5 ? "미발치" : "발치") : "확인중"}</td>
+                  <td>{row.status === "completed" ? (row.result <= 0.5 ? "미발치" : "발치") : "확인중"}</td>
                   <td>
                     <button className={styles.button} onClick={() => {handleDetail(row.id)}}>상세조회</button>
                   </td>
